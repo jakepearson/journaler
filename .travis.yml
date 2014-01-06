@@ -1,4 +1,11 @@
 language: clojure
 lein: lein2
 jdk:
-    - openjdk7
+- openjdk7
+deploy:
+  provider: heroku
+  api_key:
+    secure: XQE6eMIWcXZObGyCRMDWfOVFk+ZFxWXF5ojmtt/b3wy7MpHFDbvcaSSQISlgFuAv5QsJeOiAvDbrXwnH0B09qdjfjKMpw8NEF9AugpAXuAfBviTKdGFOGNyd0gcWm5osgI/SE8KeP7rab4V/14dATaTV4LWiSFbeefIHsY+d/N8=
+  app: journaler
+  on:
+    repo: jakepearson/journaler
