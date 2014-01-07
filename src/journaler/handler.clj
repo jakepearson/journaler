@@ -4,10 +4,14 @@
             [journaler.response :as response]
             [ring.middleware.params :as params]
             [journaler.middleware :as middleware]
-            [org.httpkit.server :as httpkit]))
+            [org.httpkit.server :as httpkit]
+            [journaler.handlers.pages :as pages]))
 
 (defroutes journaler-routes
-  (GET "*" [] (fn [request] (response/ok "Hello World!"))))
+  (GET "/" [] pages/home)
+
+  (route/resources "/static")
+  (GET "*" [] (fn [request] (response/not-found "Aw fiddlesticks"))))
 
 (def handler
   (-> journaler-routes
