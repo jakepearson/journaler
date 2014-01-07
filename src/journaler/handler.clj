@@ -16,19 +16,20 @@
       params/wrap-params
       middleware/wrap-handle-exception))
 
-(defn- configuration []
-  {:port   (or (System/getenv "PORT") 9999)
+(defn- configuration [[port]]
+  {:port   (if port (Long. port) 9999)
    :thread 20})
 
-(defn- ascii []
+(defn- ascii [options]
   (println "
                                                 ________  h___
          __        __      _____       ___     |        | |  L|_
        _/ L\\_    _| L\\_   |    L\\_    _/  L\\_  |        |_|     |
       '-o---o-' '-o---o-' '-O---O-' '=o----o-' '-OO----`OO----O-'
  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-  (println "Journaling on port: " (-> (configuration) :port)))
+  (println "Journaling on port: " (:port options)))
 
 (defn -main [& args]
-  (httpkit/run-server handler (configuration))
-  (ascii))
+  (let [options (configuration args)]
+    (httpkit/run-server handler options)
+    (ascii options)))

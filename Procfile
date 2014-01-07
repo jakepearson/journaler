@@ -1,1 +1,1 @@
-web: lein with-profile production trampoline run -m journaler.handler
+web: lein with-profile production trampoline run -m journaler.handler $PORT
