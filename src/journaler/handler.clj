@@ -17,7 +17,7 @@
       middleware/wrap-handle-exception))
 
 (defn- configuration []
-  {:port   (System/getProperty "PORT" 9999)
+  {:port   (or (System/getenv "PORT") 9999)
    :thread 20})
 
 (defn- ascii []
