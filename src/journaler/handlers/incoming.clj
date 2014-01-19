@@ -2,7 +2,13 @@
   (:require [clojure.string :as string]
             [journaler.response :as response]))
 
-(defn- instagram [text image-url url]
+;; Posts come from https://github.com/captn3m0/ifttt-webhook
+;; using a wacky app that makes a webhook look like wordpress
+
+;; HEROKU_POSTGRESQL_WHITE_URL
+;; heroku-postgresql:hobby-dev
+
+(defn- instagram [[text image-url url]]
   {:text      text
    :image-url image-url
    :url       url})
@@ -11,8 +17,8 @@
   {:text text
    :url  url})
 
-(defn- calendar [[title description where starts ends url]]
-  {:title       title
+(defn- calendar [[text description where starts ends url]]
+  {:text       text
    :description description
    :where       where
    :starts      starts

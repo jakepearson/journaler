@@ -1,0 +1,3 @@
+#!/bin/bash
+
+export DATABASE_URL=postgresql://localhost:5432/journaler
