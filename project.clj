@@ -10,6 +10,7 @@
                  [http-kit "2.1.16"]
                  [de.ubercode.clostache/clostache "1.3.1"]
                  [org.clojure/java.jdbc "0.2.3"]
-                 [postgresql "9.1-901.jdbc4"]]
+                 [postgresql "9.1-901.jdbc4"]
+                 [clj-time "0.6.0"]]
   :min-lein-version "2.0.0"
   :main journaler.handler)

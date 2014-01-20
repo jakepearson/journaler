@@ -1,7 +1,8 @@
 (ns journaler.handlers.incoming-test
   (:require [clojure.test :refer :all]
             [journaler.utils :as utils]
-            [journaler.handlers.incoming :as incoming]))
+            [journaler.handlers.incoming :as incoming]
+            [clj-time.core :as time]))
 
 (def ^:private twitter-data "{\"user\":\"jake\",\"pass\":\"password\",\"title\":\"twitter☃My cat's breath smells like cat food.☃http://twitter.com/status/123\",\"categories\":[\"http://twitter.com/eddnerd/status/424745708109828096\"]}")
 
@@ -21,8 +22,8 @@
     (is (= {:text        "brunch with the Andersons"
             :description "be there around 10"
             :where       "7042 Quiet Retreat Ct Niwot"
-            :starts      "January 19, 2014 at 10:00AM"
-            :ends        "January 19, 2014 at 12:30PM"
+            :starts      (time/date-time 2014 1 19 10)
+            :ends        (time/date-time 2014 1 19 12 30)
             :url         "http://ift.tt/1mqbgRs"
             :type        :calendar}
            (-> request incoming/handle :body)))))
@@ -34,3 +35,7 @@
             :url       "http://instragram.com/foo"
             :type      :instagram}
            (-> request incoming/handle :body)))))
+
+(deftest ->timestamp
+  (is (= (time/date-time 2014 1 19 22 11)
+         (#'incoming/->timestamp "January 19, 2014 at 10:11PM"))))
