@@ -12,7 +12,8 @@
 (deftest twitter
   (let [request {:body (utils/->map twitter-data)}]
     (is (= {:text "My cat's breath smells like cat food."
-            :url  "http://twitter.com/status/123"}
+            :url  "http://twitter.com/status/123"
+            :type :twitter}
            (-> request incoming/handle :body)))))
 
 (deftest calendar
@@ -22,12 +23,14 @@
             :where       "7042 Quiet Retreat Ct Niwot"
             :starts      "January 19, 2014 at 10:00AM"
             :ends        "January 19, 2014 at 12:30PM"
-            :url         "http://ift.tt/1mqbgRs"}
+            :url         "http://ift.tt/1mqbgRs"
+            :type        :calendar}
            (-> request incoming/handle :body)))))
 
 (deftest instagram
   (let [request {:body (utils/->map instagram-data)}]
     (is (= {:text      "my picture is hipster"
             :image-url "http://instagram.com/foo.jpg"
-            :url       "http://instragram.com/foo"}
+            :url       "http://instragram.com/foo"
+            :type      :instagram}
            (-> request incoming/handle :body)))))

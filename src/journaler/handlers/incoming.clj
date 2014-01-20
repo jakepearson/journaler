@@ -30,10 +30,18 @@
    :twitter   twitter
    :calendar  calendar})
 
-(defn handle [request]
-  (let [content (-> request
-                    (get-in [:body :title])
-                    (string/split #"☃"))
-        action  (-> content first keyword actions)
-        data    (action (rest content))]
-    (response/ok data)))
+(defn- parse [body]
+  (let [content     (-> body
+                        :title
+                        (string/split #"☃"))
+        action-type (-> content first keyword)
+        action      (action-type actions)]
+    (-> content
+        rest
+        action
+        (assoc :type action-type))))
+
+(defn handle [{:keys [body]}]
+  (-> body
+      parse
+      response/ok))
